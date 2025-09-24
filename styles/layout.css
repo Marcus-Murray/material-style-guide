@@ -1,0 +1,62 @@
+/* Layout Components */
+.top-app-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background-color: var(--md-sys-color-surface);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-md);
+    box-shadow: var(--elevation-1);
+    z-index: 1000;
+}
+
+.main-content {
+    margin-top: 64px;
+    padding: var(--spacing-lg);
+}
+
+.material-card {
+    background-color: var(--md-sys-color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--elevation-1);
+    transition: box-shadow 0.3s ease;
+}
+
+.material-card:hover {
+    box-shadow: var(--elevation-3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        padding: var(--spacing-md);
+    }
+
+    .color-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .display-large {
+        font-size: 36px;
+        line-height: 44px;
+    }
+
+    .display-medium {
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .headline-medium {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .typography-showcase {
+        padding: var(--spacing-lg);
+    }
+}

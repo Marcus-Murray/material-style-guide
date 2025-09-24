@@ -1,0 +1,33 @@
+/* Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Smooth transitions for interactive elements */
+.color-item,
+.font-card,
+.material-card {
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.material-link {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.fab {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}

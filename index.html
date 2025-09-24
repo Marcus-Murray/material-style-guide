@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Design Style Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Raleway:wght@300;400;700&family=Merriweather:wght@300;400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Content will be populated by JavaScript -->
+    <header class="top-app-bar" role="banner">
+        <h1 class="headline-medium">Material Design Style Guide</h1>
+    </header>
+
+    <main class="main-content" role="main">
+        <section class="material-card reveal" id="colors-section">
+            <header>
+                <h2 class="title-large">Color Palette</h2>
+                <p class="body-large">Your custom color scheme following Material Design principles</p>
+            </header>
+            <div class="color-grid" id="color-grid"></div>
+        </section>
+
+        <section class="material-card reveal" id="typography-section">
+            <header>
+                <h2 class="title-large">Typography</h2>
+                <p class="body-large">Font families showcased with Material Design typography scale</p>
+            </header>
+            <div class="font-grid" id="font-grid"></div>
+        </section>
+
+        <section class="material-card reveal" id="text-styles-section">
+            <header>
+                <h2 class="title-large">Text Styles</h2>
+                <p class="body-large">Material Design 3 typography scale demonstration</p>
+            </header>
+            <div class="typography-showcase" id="typography-showcase"></div>
+        </section>
+    </main>
+
+    <button class="fab" id="scroll-to-top-btn" aria-label="Scroll to top" title="Scroll to top">
+        <span class="material-icons" aria-hidden="true">keyboard_arrow_up</span>
+    </button>
+
+    <script src="scripts/utils/Utils.js"></script>
+    <script src="scripts/data/styleGuideData.js"></script>
+    <script src="scripts/components/ColorPalette.js"></script>
+    <script src="scripts/components/FontShowcase.js"></script>
+    <script src="scripts/components/TypographyShowcase.js"></script>
+    <script src="scripts/controllers/AnimationController.js"></script>
+    <script src="scripts/controllers/NavigationController.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>

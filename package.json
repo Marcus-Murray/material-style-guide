@@ -1,0 +1,31 @@
+{
+    "name": "material-design-style-guide",
+    "version": "1.0.0",
+    "description": "A modern, responsive style guide built with Material Design 3 principles",
+    "main": "index.html",
+    "scripts": {
+        "start": "live-server --port=3000",
+        "format": "prettier --write .",
+        "lint": "eslint scripts/**/*.js",
+        "build": "echo 'No build process configured'"
+    },
+    "keywords": [
+        "material-design",
+        "style-guide",
+        "css",
+        "javascript",
+        "responsive",
+        "accessibility"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "devDependencies": {
+        "live-server": "^1.2.2",
+        "prettier": "^3.0.0"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
+}

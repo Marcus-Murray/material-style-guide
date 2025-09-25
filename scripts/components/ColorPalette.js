@@ -62,9 +62,6 @@ class ColorPalette {
         colorItem.appendChild(colorSwatch);
         colorItem.appendChild(colorInfo);
 
-        // Add interactions
-        this.addColorItemInteractions(colorItem, color);
-
         return colorItem;
     }
 
@@ -77,62 +74,26 @@ class ColorPalette {
             colorSwatch.style.textShadow = 'none';
         }
 
-        // Add hover overlay
-        const overlay = Utils.createElement('div', 'color-overlay');
-        overlay.innerHTML = `
-            <span class="material-icons-outlined">content_copy</span>
-            <span>Click to copy</span>
-        `;
-        colorSwatch.appendChild(overlay);
-
         return colorSwatch;
     }
 
     createColorInfo(color) {
         const colorInfo = Utils.createElement('div', 'color-info');
 
-        // Name and copy button row
-        const nameRow = Utils.createElement('div', 'color-details');
+        // Color name
         const colorName = Utils.createElement('div', 'color-name', color.name);
-        const copyBtn = this.createCopyButton(color.hex);
 
-        nameRow.appendChild(colorName);
-        nameRow.appendChild(copyBtn);
-
-        // Color values row
-        const detailsRow = Utils.createElement('div', 'color-details');
+        // Only show hex value
         const colorHex = Utils.createElement('div', 'color-hex', color.hex);
-        const colorRgb = Utils.createElement('div', 'color-rgb', color.rgb);
 
-        detailsRow.appendChild(colorHex);
-        detailsRow.appendChild(colorRgb);
-
-        // Accessibility rating
+        // Accessibility rating (keep this for good UX)
         const accessibilityRating = this.createAccessibilityRating(color);
 
-        // Additional color info
-        const additionalInfo = this.createAdditionalColorInfo(color);
-
-        colorInfo.appendChild(nameRow);
-        colorInfo.appendChild(detailsRow);
+        colorInfo.appendChild(colorName);
+        colorInfo.appendChild(colorHex);
         colorInfo.appendChild(accessibilityRating);
-        colorInfo.appendChild(additionalInfo);
 
         return colorInfo;
-    }
-
-    createCopyButton(hex) {
-        const copyBtn = Utils.createElement('button', 'copy-btn');
-        copyBtn.innerHTML = '<span class="material-icons-outlined">content_copy</span>';
-        copyBtn.title = `Copy ${hex}`;
-        copyBtn.setAttribute('aria-label', `Copy color ${hex} to clipboard`);
-
-        copyBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.copyColor(hex, copyBtn);
-        });
-
-        return copyBtn;
     }
 
     createAccessibilityRating(color) {
@@ -165,198 +126,6 @@ class ColorPalette {
         ratingDiv.title = `Accessibility rating: ${rating} (${bestContrast.toFixed(1)}:1 contrast ratio)`;
 
         return ratingDiv;
-    }
-
-    createAdditionalColorInfo(color) {
-        const rgb = Utils.hexToRgb(color.hex);
-        const hsl = this.hexToHSL(color.hex);
-
-        const additionalInfo = Utils.createElement('div', 'additional-color-info');
-        additionalInfo.innerHTML = `
-            <div class="color-formats">
-                <div class="color-format">
-                    <label>HSL:</label>
-                    <span class="format-value">${hsl}</span>
-                </div>
-                <div class="color-actions">
-                    <button class="action-btn" data-action="edit" title="Edit color">
-                        <span class="material-icons-outlined">edit</span>
-                    </button>
-                    <button class="action-btn" data-action="variations" title="Show variations">
-                        <span class="material-icons-outlined">tune</span>
-                    </button>
-                    ${color.editable ? `
-                        <button class="action-btn danger" data-action="delete" title="Delete color">
-                            <span class="material-icons-outlined">delete</span>
-                        </button>
-                    ` : ''}
-                </div>
-            </div>
-        `;
-
-        // Add action button listeners
-        const actionBtns = additionalInfo.querySelectorAll('.action-btn');
-        actionBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.handleColorAction(btn.dataset.action, color);
-            });
-        });
-
-        return additionalInfo;
-    }
-
-    addColorItemInteractions(colorItem, color) {
-        // Main click to copy
-        colorItem.addEventListener('click', () => {
-            this.copyColor(color.hex);
-        });
-
-        // Keyboard support
-        colorItem.setAttribute('tabindex', '0');
-        colorItem.setAttribute('role', 'button');
-        colorItem.setAttribute('aria-label', `${color.name} color, ${color.hex}. Press Enter to copy.`);
-
-        colorItem.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.copyColor(color.hex);
-            }
-        });
-
-        // Enhanced hover effects
-        colorItem.addEventListener('mouseenter', () => {
-            this.showColorPreview(color, colorItem);
-        });
-
-        colorItem.addEventListener('mouseleave', () => {
-            this.hideColorPreview();
-        });
-    }
-
-    showColorPreview(color, element) {
-        // Create or update color preview tooltip
-        let tooltip = document.getElementById('color-preview-tooltip');
-        if (!tooltip) {
-            tooltip = Utils.createElement('div', 'color-preview-tooltip');
-            tooltip.id = 'color-preview-tooltip';
-            document.body.appendChild(tooltip);
-        }
-
-        const rgb = Utils.hexToRgb(color.hex);
-        const hsl = this.hexToHSL(color.hex);
-
-        tooltip.innerHTML = `
-            <div class="tooltip-color" style="background: ${color.hex}; color: ${color.textColor};"></div>
-            <div class="tooltip-info">
-                <strong>${color.name}</strong>
-                <div>HEX: ${color.hex}</div>
-                <div>RGB: rgb(${rgb.r}, ${rgb.g}, ${rgb.b})</div>
-                <div>HSL: ${hsl}</div>
-            </div>
-        `;
-
-        // Position tooltip
-        const rect = element.getBoundingClientRect();
-        const tooltipRect = tooltip.getBoundingClientRect();
-
-        let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-        let top = rect.top - tooltipRect.height - 10;
-
-        // Adjust if tooltip would go off screen
-        if (left < 10) left = 10;
-        if (left + tooltipRect.width > window.innerWidth - 10) {
-            left = window.innerWidth - tooltipRect.width - 10;
-        }
-        if (top < 10) {
-            top = rect.bottom + 10;
-        }
-
-        tooltip.style.left = left + 'px';
-        tooltip.style.top = top + 'px';
-        tooltip.classList.add('show');
-    }
-
-    hideColorPreview() {
-        const tooltip = document.getElementById('color-preview-tooltip');
-        if (tooltip) {
-            tooltip.classList.remove('show');
-        }
-    }
-
-    async copyColor(hex, button = null) {
-        const success = await Utils.copyToClipboard(hex);
-
-        if (success && button) {
-            // Visual feedback for copy button
-            const originalHTML = button.innerHTML;
-            button.innerHTML = '<span class="material-icons-outlined">check</span>';
-            button.classList.add('copied');
-
-            setTimeout(() => {
-                button.innerHTML = originalHTML;
-                button.classList.remove('copied');
-            }, 1000);
-        }
-    }
-
-    handleColorAction(action, color) {
-        switch (action) {
-            case 'edit':
-                this.editColor(color);
-                break;
-            case 'variations':
-                this.showColorVariations(color);
-                break;
-            case 'delete':
-                this.deleteColor(color);
-                break;
-        }
-    }
-
-    editColor(color) {
-        const newName = prompt('Enter new color name:', color.name);
-        const newHex = prompt('Enter new hex color:', color.hex);
-
-        if (newName && newHex && Utils.isValidHexColor(newHex)) {
-            const rgb = Utils.hexToRgb(newHex);
-            const rgbString = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-            const textColor = Utils.getContrastRatio(newHex, '#000000') > Utils.getContrastRatio(newHex, '#ffffff') ? '#000' : '#fff';
-
-            // Update color data
-            Object.assign(color, {
-                name: newName,
-                hex: newHex,
-                rgb: rgbString,
-                textColor: textColor
-            });
-
-            this.render();
-            SnackbarController.success(`Updated ${newName}!`);
-        } else if (newName || newHex) {
-            SnackbarController.error('Invalid color format. Please use #RRGGBB format.');
-        }
-    }
-
-    showColorVariations(color) {
-        // This could open a modal with color variations
-        SnackbarController.info(`Showing variations for ${color.name} - Feature coming soon!`);
-    }
-
-    deleteColor(color) {
-        if (!color.editable) {
-            SnackbarController.error('This color cannot be deleted');
-            return;
-        }
-
-        if (confirm(`Are you sure you want to delete ${color.name}?`)) {
-            const index = this.colorData.findIndex(c => c.hex === color.hex && c.name === color.name);
-            if (index > -1) {
-                this.colorData.splice(index, 1);
-                this.render();
-                SnackbarController.success(`Deleted ${color.name}`);
-            }
-        }
     }
 
     search(term) {

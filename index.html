@@ -3,60 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material Design Style Guide</title>
+    <title>Enhanced Material Design Style Guide</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Raleway:wght@300;400;700&family=Merriweather:wght@300;400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Merriweather:wght@300;400;700;900&family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- CSS Files -->
     <link rel="stylesheet" href="styles/variables.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/enhancements.css">
 </head>
 <body>
-    <!-- Content will be populated by JavaScript -->
-    <header class="top-app-bar" role="banner">
-        <h1 class="headline-medium">Material Design Style Guide</h1>
+    <!-- Particle Background -->
+    <div class="particle-background" id="particle-bg"></div>
+
+    <!-- Enhanced Top App Bar -->
+    <header class="top-app-bar">
+        <div class="app-bar-start">
+            <button class="drawer-toggle" id="drawer-toggle">
+                <span class="material-icons-outlined">menu</span>
+            </button>
+            <h1 class="app-bar-title">
+                <span class="material-icons-outlined">palette</span>
+                Enhanced Style Guide
+            </h1>
+        </div>
+
+        <div class="app-bar-actions">
+            <div class="search-container">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input type="text" class="search-bar" placeholder="Search colors, fonts..." id="search-input">
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+                <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+            </button>
+        </div>
     </header>
 
-    <main class="main-content" role="main">
+    <!-- Navigation Drawer -->
+    <nav class="nav-drawer" id="nav-drawer">
+        <h3 class="drawer-title">Navigation</h3>
+        <div class="nav-links">
+            <a href="#colors-section" class="nav-link">
+                <span class="material-icons-outlined">palette</span>
+                Color Palette
+            </a>
+            <a href="#typography-section" class="nav-link">
+                <span class="material-icons-outlined">text_fields</span>
+                Typography
+            </a>
+            <a href="#playground-section" class="nav-link">
+                <span class="material-icons-outlined">tune</span>
+                Playground
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content" role="main">
+        <!-- Enhanced Color Section -->
         <section class="material-card reveal" id="colors-section">
-            <header>
-                <h2 class="title-large">Color Palette</h2>
-                <p class="body-large">Your custom color scheme following Material Design principles</p>
+            <header class="section-header">
+                <h2 class="title-large">Interactive Color Palette</h2>
+                <p class="body-large">Click any color to copy its hex code. Hover for accessibility ratings.</p>
             </header>
+
+            <div class="action-buttons">
+                <button class="btn-primary" id="export-colors-btn">
+                    <span class="material-icons-outlined">download</span>
+                    Export CSS Variables
+                </button>
+                <button class="btn-secondary" id="add-color-btn">
+                    <span class="material-icons-outlined">add</span>
+                    Add Custom Color
+                </button>
+            </div>
+
             <div class="color-grid" id="color-grid"></div>
         </section>
 
+        <!-- Enhanced Typography Section -->
         <section class="material-card reveal" id="typography-section">
-            <header>
-                <h2 class="title-large">Typography</h2>
-                <p class="body-large">Font families showcased with Material Design typography scale</p>
+            <header class="section-header">
+                <h2 class="title-large">Dynamic Typography</h2>
+                <p class="body-large">Interactive font showcase with variable weights and live preview.</p>
             </header>
+
+            <div class="font-playground">
+                <div class="font-controls">
+                    <div class="weight-slider">
+                        <label for="font-weight">Font Weight: <span id="weight-value">400</span></label>
+                        <input type="range" id="font-weight" min="100" max="900" step="100" value="400">
+                    </div>
+                    <div class="weight-slider">
+                        <label for="font-size">Font Size: <span id="size-value">16px</span></label>
+                        <input type="range" id="font-size" min="12" max="48" step="2" value="16">
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" id="export-fonts-btn">
+                        <span class="material-icons-outlined">code</span>
+                        Export Font CSS
+                    </button>
+                    <button class="btn-secondary" id="reset-fonts-btn">
+                        <span class="material-icons-outlined">refresh</span>
+                        Reset Settings
+                    </button>
+                </div>
+            </div>
+
             <div class="font-grid" id="font-grid"></div>
         </section>
 
-        <section class="material-card reveal" id="text-styles-section">
-            <header>
-                <h2 class="title-large">Text Styles</h2>
-                <p class="body-large">Material Design 3 typography scale demonstration</p>
+        <!-- Component Playground -->
+        <section class="material-card reveal" id="playground-section">
+            <header class="section-header">
+                <h2 class="title-large">Component Playground</h2>
+                <p class="body-large">Material Design 3 typography scale with live customization.</p>
             </header>
+
             <div class="typography-showcase" id="typography-showcase"></div>
         </section>
     </main>
 
-    <button class="fab" id="scroll-to-top-btn" aria-label="Scroll to top" title="Scroll to top">
-        <span class="material-icons" aria-hidden="true">keyboard_arrow_up</span>
+    <!-- Floating Action Button -->
+    <button class="fab" id="scroll-to-top-btn" title="Scroll to top">
+        <span class="material-icons-outlined">keyboard_arrow_up</span>
     </button>
 
+    <!-- Snackbar -->
+    <div class="snackbar" id="snackbar">
+        <span id="snackbar-message">Notification message</span>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="export-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Export Code</h3>
+                <button class="modal-close" id="close-modal-btn">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+            <div class="export-code" id="export-code">
+                <!-- Generated code will appear here -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancel-modal-btn">Cancel</button>
+                <button class="btn-primary" id="copy-code-btn">Copy Code</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files - CORRECTED ORDER -->
+    <!-- Utilities first -->
     <script src="scripts/utils/Utils.js"></script>
     <script src="scripts/data/styleGuideData.js"></script>
+
+    <!-- Controllers (must load before components that depend on them) -->
+    <script src="scripts/controllers/SnackbarController.js"></script>
+    <script src="scripts/controllers/ThemeController.js"></script>
+    <script src="scripts/controllers/ParticleSystem.js"></script>
+    <script src="scripts/controllers/AnimationController.js"></script>
+    <script src="scripts/controllers/NavigationController.js"></script>
+
+    <!-- Components (depend on controllers) -->
     <script src="scripts/components/ColorPalette.js"></script>
     <script src="scripts/components/FontShowcase.js"></script>
     <script src="scripts/components/TypographyShowcase.js"></script>
-    <script src="scripts/controllers/AnimationController.js"></script>
-    <script src="scripts/controllers/NavigationController.js"></script>
+
+    <!-- Controllers that depend on components -->
+    <script src="scripts/controllers/SearchController.js"></script>
+    <script src="scripts/controllers/ExportController.js"></script>
+
+    <!-- Main app last -->
     <script src="scripts/app.js"></script>
 </body>
 </html>

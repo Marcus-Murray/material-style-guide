@@ -1,42 +1,222 @@
-/* Color Components */
-.color-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
+/* Enhanced Layout Components */
+.top-app-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-md);
+    z-index: var(--z-header);
+    transition: all var(--motion-duration-medium2) var(--motion-easing-standard);
 }
 
-.color-item {
-    background-color: var(--md-sys-color-surface-variant);
+.main-content {
+    margin-top: 64px;
+    margin-left: 0;
+    padding: var(--spacing-lg);
+    transition: margin-left var(--motion-duration-medium2) var(--motion-easing-standard);
+    min-height: calc(100vh - 64px);
+}
+
+.main-content.drawer-open {
+    margin-left: 320px;
+}
+
+/* Enhanced Material Cards */
+.material-card {
     border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: transform 0.2s ease;
-    cursor: pointer;
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--elevation-1);
+    transition: all var(--motion-duration-medium2) var(--motion-easing-standard);
+    /* Enhanced in enhancements.css with glassmorphism */
 }
 
-.color-item:hover {
+.material-card:hover {
+    box-shadow: var(--elevation-3);
     transform: translateY(-2px);
 }
 
+/* Container Classes */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 0 var(--spacing-md);
+}
+
+.container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* Grid System */
+.grid {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Flex Utilities */
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-around {
+    justify-content: space-around;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+/* Spacing Utilities */
+.m-0 { margin: 0; }
+.m-1 { margin: var(--spacing-xs); }
+.m-2 { margin: var(--spacing-sm); }
+.m-3 { margin: var(--spacing-md); }
+.m-4 { margin: var(--spacing-lg); }
+.m-5 { margin: var(--spacing-xl); }
+
+.p-0 { padding: 0; }
+.p-1 { padding: var(--spacing-xs); }
+.p-2 { padding: var(--spacing-sm); }
+.p-3 { padding: var(--spacing-md); }
+.p-4 { padding: var(--spacing-lg); }
+.p-5 { padding: var(--spacing-xl); }
+
+/* Enhanced Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .main-content.drawer-open {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: var(--spacing-md);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .material-card {
+        padding: var(--spacing-md);
+    }
+
+    .flex-column-mobile {
+        flex-direction: column;
+    }
+
+    .text-center-mobile {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: var(--spacing-sm);
+    }
+
+    .material-card {
+        margin-bottom: var(--spacing-md);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .main-content {
+        margin-top: 0;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .material-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        margin-bottom: var(--spacing-lg);
+        break-inside: avoid;
+    }
+}
+
 .color-swatch {
-    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 500;
+    font-size: 16px;
     color: #000;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    /* Enhanced in enhancements.css */
 }
 
 .color-info {
     padding: var(--spacing-md);
-    background-color: var(--md-sys-color-surface);
+    background: var(--md-sys-color-surface);
 }
 
 .color-name {
     font-weight: 500;
     margin-bottom: var(--spacing-xs);
     color: var(--md-sys-color-on-surface);
+    font-size: 16px;
 }
 
 .color-hex,
@@ -54,7 +234,7 @@
     margin-top: var(--spacing-xs);
 }
 
-/* Typography Components */
+/* Enhanced Typography Components */
 .font-grid {
     display: grid;
     gap: var(--spacing-lg);
@@ -62,17 +242,11 @@
 }
 
 .font-card {
-    background-color: var(--md-sys-color-surface-variant);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
-    transition: transform 0.2s ease;
-    position: relative;
-    overflow: hidden;
+    transition: all var(--motion-duration-medium2) var(--motion-easing-standard);
     cursor: pointer;
-}
-
-.font-card:hover {
-    transform: translateY(-2px);
+    /* Enhanced in enhancements.css */
 }
 
 .font-name {
@@ -82,12 +256,16 @@
     color: var(--md-sys-color-on-surface);
     padding-bottom: var(--spacing-sm);
     border-bottom: 2px solid var(--md-sys-color-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .font-preview {
     margin-bottom: 12px;
     padding: var(--spacing-sm) 0;
     color: var(--md-sys-color-on-surface-variant);
+    transition: all var(--motion-duration-short4);
 }
 
 .font-preview.normal { font-weight: 400; }
@@ -100,7 +278,7 @@
 
 /* Typography Showcase */
 .typography-showcase {
-    background-color: var(--md-sys-color-surface-variant);
+    background: var(--md-sys-color-surface-variant);
     border-radius: var(--radius-lg);
     padding: var(--spacing-xl);
     margin-top: var(--spacing-md);
@@ -114,14 +292,29 @@
 .typography-showcase h6 {
     color: var(--md-sys-color-on-surface);
     margin-bottom: var(--spacing-md);
+    cursor: text;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--motion-duration-short2);
+}
+
+.typography-showcase [contenteditable="true"]:hover {
+    background: var(--md-sys-color-primary-container);
+    outline: 1px dashed var(--md-sys-color-primary);
+}
+
+.typography-showcase [contenteditable="true"]:focus {
+    background: var(--md-sys-color-primary-container);
+    outline: 2px solid var(--md-sys-color-primary);
 }
 
 .body-text {
     color: var(--md-sys-color-on-surface-variant);
     margin-bottom: var(--spacing-md);
+    line-height: 1.6;
 }
 
-/* Interactive Elements */
+/* Enhanced Interactive Elements */
 .material-link {
     color: var(--md-sys-color-primary);
     text-decoration: none;
@@ -129,12 +322,19 @@
     border-radius: var(--radius-sm);
     padding: var(--spacing-xs) var(--spacing-sm);
     margin: calc(-1 * var(--spacing-xs)) calc(-1 * var(--spacing-sm));
-    transition: background-color 0.2s ease;
+    transition: all var(--motion-duration-short2) var(--motion-easing-standard);
+    position: relative;
+    overflow: hidden;
 }
 
 .material-link:hover {
     background-color: var(--md-sys-color-primary-container);
     color: var(--md-sys-color-on-primary-container);
+    transform: translateY(-1px);
+}
+
+.material-link:active {
+    transform: translateY(0);
 }
 
 .material-link:focus {
@@ -142,6 +342,7 @@
     outline-offset: 2px;
 }
 
+/* Enhanced FAB */
 .fab {
     position: fixed;
     bottom: var(--spacing-lg);
@@ -149,7 +350,6 @@
     width: 56px;
     height: 56px;
     border-radius: var(--radius-xl);
-    background-color: var(--md-sys-color-primary-container);
     color: var(--md-sys-color-on-primary-container);
     border: none;
     cursor: pointer;
@@ -157,15 +357,95 @@
     align-items: center;
     justify-content: center;
     box-shadow: var(--elevation-2);
-    transition: all 0.3s ease;
-    z-index: 1000;
+    transition: all var(--motion-duration-medium1) var(--motion-easing-standard);
+    z-index: var(--z-fab);
+    /* Enhanced in enhancements.css */
 }
 
 .fab:hover {
     transform: scale(1.1);
-    box-shadow: var(--elevation-3);
+    box-shadow: var(--elevation-4);
 }
 
-.fab .material-icons {
+.fab:active {
+    transform: scale(1.05);
+    box-shadow: var(--elevation-2);
+}
+
+.fab .material-icons-outlined {
     font-size: 24px;
+}
+
+/* Component State Classes */
+.component-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.component-error {
+    border: 1px solid var(--md-sys-color-error);
+    background: var(--md-sys-color-error-container);
+}
+
+.component-success {
+    border: 1px solid #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+/* Utility Classes */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+/* Loading States */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--md-sys-color-surface-variant) 25%,
+        transparent 50%,
+        var(--md-sys-color-surface-variant) 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
